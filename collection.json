@@ -1,0 +1,248 @@
+[
+  {
+    "title": "Top 5 Shoulder Mobility Drills",
+    "slug": "shoulder",
+    "description": "A curated set of mobility drills designed to improve shoulder range of motion and reduce stiffness.",
+    "duration": "8-10 minutes",
+    "difficulty": "Beginner",
+    "tags": ["mobility", "shoulder", "warmup"],
+    "exercises": [
+      {
+        "name": "Arm Circles",
+        "instructions": "Stand tall with arms extended to the side. Rotate arms forward in small circles, gradually increasing the size.",
+        "tips": [
+          "Keep your core engaged to avoid swinging the torso.",
+          "Move slowly to warm the joint safely.",
+          "Increase circle size only if comfortable."
+        ],
+        "duration": "30-45 seconds",
+        "common_mistakes": [
+          "Shrugging shoulders up.",
+          "Rotating too fast.",
+          "Arching lower back."
+        ]
+      },
+      {
+        "name": "Shoulder Pass-Throughs",
+        "instructions": "Hold a stick or resistance band wide. Bring it over your head and behind your back while keeping arms straight.",
+        "tips": [
+          "Adjust grip width for comfort.",
+          "Keep shoulders relaxed—not tense.",
+          "Move in a slow controlled arc."
+        ],
+        "duration": "8-12 reps",
+        "common_mistakes": [
+          "Bending elbows.",
+          "Using too narrow a grip.",
+          "Rushing through the movement."
+        ]
+      },
+      {
+        "name": "Wall Slides",
+        "instructions": "Stand with back against a wall, elbows bent at 90°. Slide arms up while keeping wrists and elbows touching the wall.",
+        "tips": [
+          "Maintain contact with the wall throughout.",
+          "Keep ribcage down and core tight.",
+          "Move slowly to feel scapular movement."
+        ],
+        "duration": "10-12 reps",
+        "common_mistakes": [
+          "Letting lower back arch.",
+          "Elbows losing contact with wall."
+        ]
+      },
+      {
+        "name": "Scapular Retractions",
+        "instructions": "Stand or sit tall. Pull your shoulder blades back and down without shrugging.",
+        "tips": [
+          "Imagine putting shoulder blades into your back pockets.",
+          "Keep neck relaxed.",
+          "Hold the squeeze briefly."
+        ],
+        "duration": "10-15 reps",
+        "common_mistakes": [
+          "Shrugging shoulders upward.",
+          "Overextending chest."
+        ]
+      },
+      {
+        "name": "Thread the Needle",
+        "instructions": "Start on all fours. Slide one arm underneath the body and rotate torso, stretching the upper back and shoulder.",
+        "tips": [
+          "Exhale as you rotate into the stretch.",
+          "Move slowly to reduce tension.",
+          "Keep hips stable."
+        ],
+        "duration": "20-30 seconds per side",
+        "common_mistakes": [
+          "Dropping hips sideways.",
+          "Rushing the stretch."
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Beginner-Friendly Core Finishers",
+    "slug": "core",
+    "description": "Quick and simple core finisher routines designed for beginners to build foundational core strength.",
+    "duration": "5-7 minutes",
+    "difficulty": "Beginner",
+    "tags": ["core", "abs", "finisher"],
+    "exercises": [
+      {
+        "name": "Dead Bug",
+        "instructions": "Lie on your back, arms extended toward ceiling and knees bent at 90°. Lower opposite arm and leg while keeping core braced.",
+        "tips": [
+          "Press lower back into the floor.",
+          "Move slowly with control.",
+          "Coordinate breath with the movement."
+        ],
+        "duration": "8-12 reps per side",
+        "common_mistakes": [
+          "Letting lower back arch.",
+          "Moving too fast.",
+          "Shoulders lifting off the floor."
+        ]
+      },
+      {
+        "name": "Plank Hold",
+        "instructions": "Place elbows under shoulders and keep body in a straight line from head to heels.",
+        "tips": [
+          "Squeeze glutes and quads.",
+          "Keep neck neutral.",
+          "Breathe steadily—don’t hold breath."
+        ],
+        "duration": "20-40 seconds",
+        "common_mistakes": [
+          "Dropping hips.",
+          "Piking hips too high.",
+          "Holding breath."
+        ]
+      },
+      {
+        "name": "Heel Touches",
+        "instructions": "Lie on back with knees bent. Reach side-to-side tapping heels while engaging obliques.",
+        "tips": [
+          "Small controlled range.",
+          "Keep shoulder blades lifted.",
+          "Exhale as you reach."
+        ],
+        "duration": "20-30 seconds",
+        "common_mistakes": [
+          "Using momentum.",
+          "Neck straining forward."
+        ]
+      },
+      {
+        "name": "Bird Dog",
+        "instructions": "Start on all fours. Extend opposite arm and leg while keeping hips level.",
+        "tips": [
+          "Slow, controlled extension.",
+          "Keep core tight.",
+          "Avoid hip rotation."
+        ],
+        "duration": "8-10 reps per side",
+        "common_mistakes": [
+          "Rotating hips.",
+          "Lifting leg too high.",
+          "Rushing reps."
+        ]
+      },
+      {
+        "name": "Flutter Kicks",
+        "instructions": "Lie flat with hands under hips. Lift legs slightly off the ground and kick alternately.",
+        "tips": [
+          "Keep core engaged to protect lower back.",
+          "Small fast kicks.",
+          "Breathe normally."
+        ],
+        "duration": "20-30 seconds",
+        "common_mistakes": [
+          "Arching lower back.",
+          "Lifting legs too high."
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Improve Flexibility in 7 Minutes",
+    "slug": "flexibility",
+    "description": "A fast and effective full-body flexibility routine ideal for daily stretching.",
+    "duration": "7 minutes",
+    "difficulty": "Beginner",
+    "tags": ["flexibility", "stretching", "fullbody"],
+    "exercises": [
+      {
+        "name": "Hamstring Stretch",
+        "instructions": "Sit or stand and hinge forward from the hips to stretch the back of the thigh.",
+        "tips": [
+          "Keep spine long.",
+          "Avoid bending from the lower back.",
+          "Relax into the stretch with slow breaths."
+        ],
+        "duration": "20-30 seconds per side",
+        "common_mistakes": [
+          "Rounding the back.",
+          "Forcing the stretch.",
+          "Locking knees."
+        ]
+      },
+      {
+        "name": "Quad Stretch",
+        "instructions": "Stand tall and pull one foot toward glutes while keeping knees aligned.",
+        "tips": [
+          "Keep knees close together.",
+          "Squeeze glutes for deeper stretch.",
+          "Stay upright—don’t lean forward."
+        ],
+        "duration": "20-30 seconds per side",
+        "common_mistakes": [
+          "Pulling ankle too forcefully.",
+          "Arching back."
+        ]
+      },
+      {
+        "name": "Hip Flexor Stretch",
+        "instructions": "From a half-kneeling position, gently lean forward to feel stretch in front of hip.",
+        "tips": [
+          "Tuck pelvis slightly.",
+          "Keep torso upright.",
+          "Move slowly."
+        ],
+        "duration": "20-30 seconds per side",
+        "common_mistakes": [
+          "Overarching back.",
+          "Leaning too far forward."
+        ]
+      },
+      {
+        "name": "Upper Back Stretch",
+        "instructions": "Sit or stand, interlock fingers, push arms forward and round upper back to feel stretch between shoulder blades.",
+        "tips": [
+          "Expand shoulder blades.",
+          "Relax neck.",
+          "Exhale to deepen stretch."
+        ],
+        "duration": "20-25 seconds",
+        "common_mistakes": [
+          "Shrugging shoulders.",
+          "Leaning backward."
+        ]
+      },
+      {
+        "name": "Calf Stretch",
+        "instructions": "Stand facing a wall, place one leg behind, and push heel down to stretch the calf.",
+        "tips": [
+          "Keep back leg straight.",
+          "Press heel firmly into the ground.",
+          "Lean into the wall gently."
+        ],
+        "duration": "20-30 seconds per side",
+        "common_mistakes": [
+          "Bending back knee.",
+          "Lifting heel."
+        ]
+      }
+    ]
+  }
+]
