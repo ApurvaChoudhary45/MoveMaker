@@ -210,7 +210,7 @@ const CreateWorkout = () => {
             <div className='py-20 px-10 '>
 
                 <div className='text-center flex justify-center items-center flex-col gap-3 mt-5'>
-                    <h1 className='text-3xl font-extrabold'>🐦‍🔥Let's Build Your Perfect Workout</h1>
+                    <h1 className='text-3xl font-extrabold'>🐦‍🔥Let is Build Your Perfect Workout</h1>
                     <p className='text-lg text-orange-400'>`Small habits. Big results. Start by giving your workout a name.</p>
                 </div>
                 {/* HEADER */}

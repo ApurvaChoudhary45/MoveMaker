@@ -237,7 +237,7 @@ ${darker
                         : 'bg-gradient-to-r from-indigo-700 to-purple-800 text-white'}`}>
                     <h2 className="text-lg font-medium flex items-center gap-2">
                         <Lightbulb className="w-5 h-5" />
-                        Today's Tip
+                        Today is Tip
                     </h2>
                     <p className="mt-2 text-sm">
                         {idea}

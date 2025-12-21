@@ -50,11 +50,14 @@ const Profile = () => {
         const { name, value } = e.target
         setDetails(prev => ({ ...prev, [name]: value }))
     }
+    
+    
     useEffect(() => {
-        if (!isLoaded && !user) return
+        if (!isLoaded || !user) return
         const fetcher = async () => {
             let obj = {
-                userID: user?.id
+                userID: user?.id,
+                email: user?.primaryEmailAddress?.emailAddress
             }
             const data = await fetch('/api/getInfo', {
                 method: 'POST',
@@ -64,13 +67,13 @@ const Profile = () => {
                 body: JSON.stringify(obj)
             })
             const res = await data.json()
-
+            console.log(res)
             setInfo(res?.getWorkout?.[0])
 
         }
         fetcher()
     }, [user, isLoaded])
-
+    console.log(user)
     const cancelPlan = () => {
         setcancelModal(true)
     }
@@ -160,7 +163,7 @@ const Profile = () => {
             userID: user?.id,
             id: info?._id
         }
-
+        console.log(obj)
         const data = await fetch('/api/personal', {
             method: 'PUT',
             headers: {
@@ -168,6 +171,8 @@ const Profile = () => {
             },
             body: JSON.stringify(obj),
         })
+
+        setbasicModal(false)
     }
     useEffect(() => {
         const fetcher = async () => {
@@ -215,6 +220,10 @@ const Profile = () => {
         }
 
     }
+    useEffect(() => {
+    console.log(info)
+    console.log(info?._id)
+    }, [info])
 
 
     return (

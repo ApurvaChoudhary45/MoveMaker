@@ -15,6 +15,7 @@ export default function ExercisesPage() {
     const [marked, setmarked] = useState(false)
     const [count, setcount] = useState(0)
     const darker = useSelector(state => state.dark.mode)
+    const [today, setToday] = useState('')
     const [history, sethistory] = useState({
         name: '',
         targetMuscles: '',
@@ -26,7 +27,9 @@ export default function ExercisesPage() {
     const closeBadge = () => {
         setmarked(false)
     }
-    const today = new Date(Date.now()).toISOString()
+    useEffect(() => {
+  setToday(new Date().toISOString())
+}, [])
     const badgeImg = 'https://cdn-icons-png.flaticon.com/128/18315/18315037.png'
     const addBadge = async (url) => {
         let badgeInfo = {

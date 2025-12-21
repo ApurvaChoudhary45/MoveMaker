@@ -15,12 +15,12 @@ const Progress = () => {
     const [target, settarget] = useState([])
     const [favorite, setfavorite] = useState('')
     const [streak, setstreak] = useState(0)
-
+    
     useEffect(() => {
         if (!isLoaded || !user) return
         const libWork = async () => {
             try {
-                let obj = { userID: user.id }
+                let obj = { userID: user?.id }
                 const data = await fetch('/api/recenthistory', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -163,7 +163,7 @@ const Progress = () => {
                 >
                     <h2 className={`text-xl font-semibold mb-4
                         ${darker ? 'text-gray-800' : 'text-white'}`}>
-                        Today's Workout
+                        Current Day Workout
                     </h2>
 
                     {[
@@ -177,7 +177,7 @@ const Progress = () => {
                             ${darker ? 'bg-gray-50 text-gray-700' : 'bg-gray-800 text-gray-300'}`}
                         >
                             <span className="font-medium">{ex}</span>
-                            <span className="text-sm">3–4 sets</span>
+                            <span className="text-sm">3 to 4 sets</span>
                         </div>
                     ))}
 

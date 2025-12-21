@@ -9,6 +9,7 @@ const connection = client.connect()
 export async function PUT(request) {
     try {
         const body = await request.json()
+        console.log(body)
         const {feet, inches, weight, level, goal, userID, id, image} = body
         const addWork = (await connection).db('MoveMaker').collection('Personal')
         await addWork.updateOne({_id : new ObjectId(id)}, {$set : {feet : feet, inches : inches, weight : weight, level : level, goal : goal, userID : userID, image : image}})

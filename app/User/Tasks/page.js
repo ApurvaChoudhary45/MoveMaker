@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { useUser } from '@clerk/nextjs';
 import { SignOutButton } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
+import { useRef } from 'react';
 const Tasks = () => {
     const [tasks, settasks] = useState([])
     const [mark, setmark] = useState(false)
     const [marked, setmarked] = useState([])
     let { user } = useUser()
     const [panel, setPanel] = useState([])
+    const ref = useRef(0)
     useEffect(() => {
         const fetcher = async () => {
             try {
@@ -51,7 +53,7 @@ const Tasks = () => {
             },
             body: JSON.stringify(obj),
         })
-        setmarked(prev => [...prev, item.id])
+        setmarked(prev => [...prev, item._id])
         let systemNotify = {
       userID: user?.id,
       message: msg
@@ -64,7 +66,8 @@ const Tasks = () => {
       body: JSON.stringify(systemNotify),
     })
 
-    const id = Date.now()
+    ref.current +=1
+    const id = ref.current
 
         setPanel(prev=>[...prev, {id, msg}])
         setTimeout(() => {
