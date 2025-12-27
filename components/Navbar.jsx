@@ -15,12 +15,12 @@ const Navbar = () => {
     const router = useRouter()
     const [text, settext] = useState('')
     const [userEx, setuserEx] = useState([])
-    let { user } = useUser()
+    let { user, isLoaded } = useUser()
     const dispatch = useDispatch()
     const [notifyModal, setnotifyModal] = useState(false)
     const [notifyPanel, setnotifyPanel] = useState([])
     const [coin, setCoin] = useState([]);
-    const [info, setInfo] = useState([])
+    const [info, setInfo] = useState({})
    
     const notifications = () => {
         setnotifyModal(!notifyModal)
