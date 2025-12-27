@@ -64,18 +64,26 @@ const Navbar = () => {
 
 
     useEffect(() => {
-        if (info) {
-            setDetails({
-                feet: info.feet || "",
-                inches: info.inches || "",
-                weight: info.weight || "",
-                level: info.level || "",
-                goal: info.goal || "",
-                
-            });
-        }
-    }, [info]);
-   
+    if (!info) return;
+
+    setDetails(prev => {
+        if (
+            prev.feet === info.feet &&
+            prev.inches === info.inches &&
+            prev.weight === info.weight &&
+            prev.level === info.level &&
+            prev.goal === info.goal
+        ) return prev; // no change, avoid setState
+
+        return {
+            feet: info.feet || "",
+            inches: info.inches || "",
+            weight: info.weight || "",
+            level: info.level || "",
+            goal: info.goal || "",
+        };
+    });
+}, [info]);
     useEffect(() => {
         const fetcher = async () => {
             const data = await fetch('/api/extra')
