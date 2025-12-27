@@ -14,7 +14,7 @@ const Profile = () => {
     const { edgestore } = useEdgeStore();
     const { user, isLoaded, isSignedIn } = useUser()
     const joined = user?.createdAt
-    console.log(joined)
+const joinedDate = joined ? new Date(joined) : null
     const [basicModal, setbasicModal] = useState(false)
     const [photoModal, setphotoModal] = useState(false)
     const [url, seturl] = useState('')
@@ -82,6 +82,7 @@ const Profile = () => {
     }
 
     useEffect(() => {
+        if (!user?.id) return
         const fetching = async () => {
             try {
                 const userInfo = { userID: user?.id }
@@ -362,7 +363,13 @@ ${darker ? 'bg-white text-black' : 'bg-black text-white'}`}>
                 {/* PROFILE HEADER */}
                 <section className={`flex items-center gap-4 p-4 rounded-2xl
 ${darker ? 'bg-gray-100' : 'bg-gray-900'}`}>
-                    {info?.image ? <img src={info.image} className='h-20 w-25 rounded-full' /> : <div className={`${darker ? 'bg-gray-300' : 'bg-gray-700'} w-20 h-20 rounded-full`}/>}
+                    {info?.image ? <Image
+  src={info.image}
+  alt="Profile picture"
+  width={80}
+  height={80}
+  className="rounded-full"
+/>: <div className={`${darker ? 'bg-gray-300' : 'bg-gray-700'} w-20 h-20 rounded-full`}/>}
                     <div className="flex-1">
                         <h2 className="text-xl font-semibold">User Name</h2>
                         <button className="text-sm text-blue-600 underline" onClick={openPhoto}>Edit Photo</button>
@@ -431,7 +438,7 @@ ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                     <h3 className="text-lg font-semibold">Account Info</h3>
 
                     <p>Email: {user?.primaryEmailAddress?.emailAddress}</p>
-                    <p>Joined: {joined?.toLocaleString()} </p>
+                    <p>Joined: {joinedDate?.toLocaleString()} </p>
                     <div className='flex justify-between items-center'>
                         <p>Membership type: <span className='text-orange-600 font-mono'>{userEx?.plan?.toUpperCase()}</span></p>
                         {userEx?.plan === 'basic' ? <Link href='/Plans'><button className='p-2 rounded-2xl bg-orange-400 hover:bg-amber-500 cursor-pointer'>Upgrade</button></Link> : <button className='bg-gray-500 p-2 rounded-2xl hover:bg-gray-400 cursor-pointer' onClick={cancelPlan}>Cancel</button>}

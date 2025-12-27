@@ -6,15 +6,13 @@ import { useEffect, useState } from 'react'
 import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-
+import { useMemo } from 'react'
 const Progress = () => {
     const darker = useSelector(state => state.dark.mode)
 
     let { user, isLoaded } = useUser()
     const [saved, setSaved] = useState([])
     const [target, settarget] = useState([])
-    const [favorite, setfavorite] = useState('')
-    const [streak, setstreak] = useState(0)
     
     useEffect(() => {
         if (!isLoaded || !user) return
@@ -39,28 +37,33 @@ const Progress = () => {
         libWork()
     }, [isLoaded, user])
 
-    useEffect(() => {
-        const freq = {}
-        for (const element of target) {
-            freq[element] = (freq[element] || 0) + 1
-        }
-        for (const element of target) {
-            if (freq[element] > 1) setfavorite(element)
-        }
-    }, [target])
+     const favorite = useMemo(() => {
+    if (!target?.length) return ""
 
-    useEffect(() => {
-        if (!saved.length) return
-        const today = new Date()
-        const lastWorkoutDate = new Date(saved[0]?.date)
-        const diffInTime =
-            today.setHours(0, 0, 0, 0) -
-            lastWorkoutDate.setHours(0, 0, 0, 0)
-        const diffInDays = diffInTime / (1000 * 60 * 60 * 24)
+    const freq = {}
+    for (const muscle of target) {
+      freq[muscle] = (freq[muscle] || 0) + 1
+    }
 
-        if (diffInDays === 1) setstreak(prev => prev + 1)
-        else if (diffInDays > 1) setstreak(0)
-    }, [saved])
+    return Object.keys(freq).find(key => freq[key] > 1) || ""
+  }, [target])
+
+   const streak = useMemo(() => {
+  if (!saved.length) return 0
+
+  const today = new Date()
+  const lastWorkoutDate = new Date(saved[0]?.date)
+
+  today.setHours(0, 0, 0, 0)
+  lastWorkoutDate.setHours(0, 0, 0, 0)
+
+  const diffInTime = today - lastWorkoutDate
+  const diffInDays = diffInTime / (1000 * 60 * 60 * 24)
+
+  if (diffInDays === 1) return 1
+  if (diffInDays > 1) return 0
+  return 0
+}, [saved])
 
     return (
         <div>
