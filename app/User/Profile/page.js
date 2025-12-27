@@ -19,7 +19,7 @@ const joinedDate = joined ? new Date(joined) : null
     const [photoModal, setphotoModal] = useState(false)
     const [url, seturl] = useState('')
     const [file, setfile] = useState(null)
-    const [info, setInfo] = useState([])
+    const [info, setInfo] = useState(null)
     const [coin, setCoin] = useState([])
     const [totalCoin, settotalCoin] = useState(0)
     const [total, settotal] = useState(0)
@@ -73,6 +73,18 @@ const joinedDate = joined ? new Date(joined) : null
         }
         fetcher()
     }, [user, isLoaded])
+
+    useEffect(() => {
+        if (info) {
+            setDetails({
+                feet: info.feet || "",
+                inches: info.inches || "",
+                weight: info.weight || "",
+                level: info.level || "",
+                goal: info.goal || "",
+            });
+        }
+    }, [info]);
     console.log(user)
     const cancelPlan = () => {
         setcancelModal(true)
@@ -109,17 +121,7 @@ const joinedDate = joined ? new Date(joined) : null
         settotalCoin(total)
     }, [coin])
 
-    useEffect(() => {
-        if (info) {
-            setDetails({
-                feet: info.feet || "",
-                inches: info.inches || "",
-                weight: info.weight || "",
-                level: info.level || "",
-                goal: info.goal || "",
-            });
-        }
-    }, [info]);
+    
 
     const uploadPhoto = async () => {
         let upload = url
