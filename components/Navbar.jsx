@@ -19,7 +19,15 @@ const Navbar = () => {
     const dispatch = useDispatch()
     const [notifyModal, setnotifyModal] = useState(false)
     const [notifyPanel, setnotifyPanel] = useState([])
+    const [coin, setCoin] = useState([]);
     const [info, setInfo] = useState([])
+    const [details, setDetails] = useState({
+            feet: '',
+            inches: '',
+            weight: '',
+            level: '',
+            goal: '',
+        })
     const notifications = () => {
         setnotifyModal(!notifyModal)
         // console.log('Hey')
@@ -31,6 +39,7 @@ const Navbar = () => {
 
     }
     useEffect(() => {
+        if (!isLoaded || !user) return null;
         const fetching = async () => {
             try {
                 const userInfo = { userID: user?.id }
@@ -66,9 +75,7 @@ const Navbar = () => {
             });
         }
     }, [info]);
-    useEffect(() => {
-        console.log(info)
-    }, [info])
+   
     useEffect(() => {
         const fetcher = async () => {
             const data = await fetch('/api/extra')
@@ -116,13 +123,7 @@ const Navbar = () => {
     }
     const userName = user?.primaryEmailAddress?.emailAddress
     let menu = ['Dashboard', 'Workouts', 'Exercises', 'Progress', 'Profile']
-     const [details, setDetails] = useState({
-            feet: '',
-            inches: '',
-            weight: '',
-            level: '',
-            goal: '',
-        })
+     
     return (
         <div>
             <video src="https://www.pexels.com/download/video/6390166/" className='absolute inset-0 w-full h-[60vh] object-cover pt-15' playsInline loop autoPlay muted></video>
