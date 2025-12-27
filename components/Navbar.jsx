@@ -21,13 +21,7 @@ const Navbar = () => {
     const [notifyPanel, setnotifyPanel] = useState([])
     const [coin, setCoin] = useState([]);
     const [info, setInfo] = useState([])
-    const [details, setDetails] = useState({
-            feet: '',
-            inches: '',
-            weight: '',
-            level: '',
-            goal: '',
-        })
+   
     const notifications = () => {
         setnotifyModal(!notifyModal)
         // console.log('Hey')
@@ -63,17 +57,14 @@ const Navbar = () => {
     }, [user?.id])
 
 
-    useEffect(() => {
-  if (info) {
-    setDetails({
-      feet: info.feet || "",
-      inches: info.inches || "",
-      weight: info.weight || "",
-      level: info.level || "",
-      goal: info.goal || "",
-    });
-  }
-}, [info]);
+    const details = {
+  feet: info?.feet || "",
+  inches: info?.inches || "",
+  weight: info?.weight || "",
+  level: info?.level || "",
+  goal: info?.goal || "",
+};
+
 
     useEffect(() => {
         const fetcher = async () => {
