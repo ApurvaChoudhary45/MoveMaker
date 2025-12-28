@@ -66,7 +66,7 @@ export default function ExercisesPage() {
 
     const searchExercise = async (search) => {
         try {
-            const newData = await fetch(`/api/exercise?offset=20&limit=10&&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
+            const newData = await fetch(`/api/exercise?offset=20&limit=10&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
             const res = await newData.json()
             setexercise(res?.data)
         } catch (error) {
@@ -111,7 +111,7 @@ export default function ExercisesPage() {
     }
     const nextPage = async (offset) => {
         try {
-            const newData = await fetch(`/api/exercise?offset=${offset}&limit=10&&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
+            const newData = await fetch(`/api/exercise?offset=${offset}&limit=10&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
             const res = await newData.json()
             setexercise(res?.data)
         } catch (error) {

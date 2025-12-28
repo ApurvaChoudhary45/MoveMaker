@@ -2,7 +2,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { Bell, BellDotIcon, Dumbbell, SearchIcon,  } from "lucide-react";
+import { Bell, BellDotIcon, Dumbbell, SearchIcon } from "lucide-react";
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { SignOutButton, useUser } from '@clerk/nextjs';
@@ -33,7 +33,7 @@ const Navbar = () => {
 
     }
     useEffect(() => {
-        if (!isLoaded || !user) return null;
+        if (!isLoaded || !user) return;
         const fetching = async () => {
             try {
                 const userInfo = { userID: user?.id }

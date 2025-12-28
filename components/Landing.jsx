@@ -40,7 +40,7 @@ const Landing = () => {
     <div>
      <motion.div className='flex gap-3' variants={animation(1)} style={{zIndex : 50, position : 'fixed'}} initial='initial' animate='animate'>
         <Dumbbell className='text-amber-400'/>
-        <h1 className='text-xl font-bold'>MoveMaker</h1>
+        <h1 className='md:text-xl font-bold'>MoveMaker</h1>
      </motion.div>
      <motion.div initial={{opacity : 0}} animate={{opacity : load ? 1 : 0}} style={{zIndex : 10}} transition={{delay : 1, duration : 1}}>
         <Mainpage/>

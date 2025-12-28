@@ -1,18 +1,33 @@
 'use client'
 import React from 'react'
-import { Dumbbell, SearchIcon } from "lucide-react";
+import {  Bell, BellDotIcon, Dumbbell, SearchIcon } from "lucide-react";
 import Link from 'next/link';
 import { useUser } from '@clerk/nextjs';
 import { SignOutButton } from '@clerk/nextjs';
 import { useState, useEffect } from 'react';
 import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSelector, useDispatch } from 'react-redux'
+import Switch from '@/components/Toggle';
 const Tasks = () => {
     const [tasks, settasks] = useState([])
-    const [mark, setmark] = useState(false)
+
     const [marked, setmarked] = useState([])
-    let { user } = useUser()
+    let { user, isLoaded } = useUser()
     const [panel, setPanel] = useState([])
     const ref = useRef(0)
+     const router = useRouter()
+        const darker = useSelector(state => state.dark.mode)
+        const [notifyPanel, setnotifyPanel] = useState([])
+        const [loading, setloading] = useState(false)
+        const [search, setsearch] = useState('')
+        const [text, settext] = useState('')
+        const [userEx, setuserEx] = useState([])
+        const [info, setInfo] = useState({})
+        const userName = user?.primaryEmailAddress?.emailAddress
+        const notifications = () => {
+        setnotifyModal(!notifyModal)
+        }
     useEffect(() => {
         const fetcher = async () => {
             try {
@@ -83,36 +98,52 @@ const Tasks = () => {
     
     return (
         <>
-            <div className='flex justify-between items-center w-full fixed px-10 z-50 bg-black  p-3'>
+            <div>
+                <div className={`flex justify-between items-center w-full fixed px-6 z-50 bg-${darker ? 'white' : 'black'}  p-3`}>
                 <span className="flex top-5 left-5 gap-3">
+                    
                     <Dumbbell className='text-amber-400' />
-                    <h1 className="text-xl font-bold text-white">MoveMaker</h1>
+                    <h1 className={`text-xl font-bold text-${darker ? 'black' : 'white'}`}>MoveMaker</h1>
 
                 </span>
                 <div className="hidden md:flex items-center gap-6">
-                    <Link href="/User/Dashboard" className="text-gray-200 hover:text-white">Dashboard</Link>
-                    <Link href="/User/Workouts" className="text-gray-200 hover:text-white">My Workouts</Link>
-                    <Link href="/User/Exercises" className="text-gray-200 hover:text-white">Exercises</Link>
+                    <Link href="/User/Dashboard" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Dashboard</Link>
+                    <Link href="/User/Workouts" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Explore Workouts</Link>
+                    <Link href="/User/Exercises" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Exercises</Link>
                 </div>
-                <div className="flex gap-3 items-center w-1/3">
+                <div className="hidden md:flex gap-3 items-center w-1/3">
                     <input
                         type="text"
                         placeholder="Search an exercise..."
-
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none"
-
+                        value={text}
+                        className={`w-full px-4 py-3 rounded-xl border shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none
+  ${darker
+                                ? 'bg-white text-black border-gray-300'
+                                : 'bg-gray-900 text-white border-gray-700 placeholder-gray-400'}`}
+                        onChange={(e) => settext(e.target.value)}
 
                     />
-                    <SearchIcon className='text-orange-400 cursor-pointer hover:text-orange-500' />
+                    <SearchIcon className='text-orange-400 cursor-pointer' onClick={() => searchedQuery(text)} />
+                        
 
 
 
                 </div>
-                <div className='flex items-center gap-3'>
+               
+                <div>
+                    {notifyPanel.length === 0 ? <Bell className='text-orange-400 hover:text-orange-600 cursor-pointer hidden md:block' onClick={notifications} /> : <BellDotIcon className='text-orange-400 hover:text-orange-600 cursor-pointer hidden md:block' onClick={notifications} />}
 
+                </div>
+                {userEx?.plan === 'premium' && <div className='flex'>
+                <Switch />
+                </div>}
+                <div className='flex items-center gap-3'>
+                    <h1 className={`${darker ? 'text-black' : 'text-white'} hidden md:block`}>{user?.primaryEmailAddress?.emailAddress}</h1>
+                    <span className='text-white p-2 bg-orange-400 rounded-full w-10 text-center'>{userName?.[0]?.toUpperCase()}</span>
                     <SignOutButton className='bg-orange-400 p-2 rounded-2xl font-bold' routing="hash" redirectUrl="/">Sign out</SignOutButton>
                 </div>
 
+            </div>
             </div>
             <div className='pt-20'>
                 <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center mt-5">
@@ -126,7 +157,7 @@ const Tasks = () => {
                         Build momentum, earn coins, and stay consistent.
                     </p>
                 </div>
-                <div className='grid grid-cols-2 gap-10 px-5 pt-10'>
+                <div className='grid md:grid-cols-2 gap-10 px-5 pt-10'>
                     {Array?.isArray(tasks) && tasks?.map(item => {
                         return (
                             <div className={`flex items-center justify-between p-4 rounded-xl shadow-sm border 

@@ -1,28 +1,37 @@
 'use client'
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { Dumbbell, SearchIcon } from "lucide-react";
-import { motion } from 'framer-motion';
+import { Bell, BellDotIcon, Dumbbell, SearchIcon } from "lucide-react";
 import Link from 'next/link';
 import { SignOutButton, useUser } from '@clerk/nextjs';
-import Spinner from '@/components/Spinner';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from "react-redux";
 import { searchFilter } from '@/Redux/search/search';
-
+import { useSelector } from 'react-redux'
+import Switch from '@/components/Toggle';
+import Spin from '@/components/Spin';
 const MyLibrary = () => {
     
     const router = useRouter()
     const { user, isLoaded } = useUser()
+    const darker = useSelector(state => state.dark.mode)
+    const [notifyPanel, setnotifyPanel] = useState([])
     const dispatch = useDispatch()
     const [saved, setSaved] = useState([])
     const [loading, setloading] = useState(false)
     const [search, setsearch] = useState('')
     const [text, settext] = useState('')
+    const [userEx, setuserEx] = useState([])
+    const [info, setInfo] = useState({})
+    const userName = user?.primaryEmailAddress?.emailAddress
     const searchedQuery = (text) => {
             dispatch(searchFilter(text))
                     router.push(`/User/Exercises`)
     
+        }
+        const notifications = () => {
+        setnotifyModal(!notifyModal)
+        // console.log('Hey')
         }
     useEffect(() => {
         if (!isLoaded && !user) return
@@ -73,35 +82,50 @@ const MyLibrary = () => {
 
     return (
         <div>
-            <div className='flex justify-between items-center w-full fixed px-10 z-50 bg-black  p-3'>
+            <div className={`flex justify-between items-center w-full fixed px-6 z-50 bg-${darker ? 'white' : 'black'}  p-3`}>
                 <span className="flex top-5 left-5 gap-3">
+                    
                     <Dumbbell className='text-amber-400' />
-                    <h1 className="text-xl font-bold text-white">MoveMaker</h1>
+                    <h1 className={`text-xl font-bold text-${darker ? 'black' : 'white'}`}>MoveMaker</h1>
 
                 </span>
                 <div className="hidden md:flex items-center gap-6">
-                    <Link href="/User/Dashboard" className="text-gray-200 hover:text-white">Dashboard</Link>
-                    <Link href="/User/Workouts" className="text-gray-200 hover:text-white">My Workouts</Link>
-                    <Link href="/User/Exercises" className="text-gray-200 hover:text-white">Exercises</Link>
+                    <Link href="/User/Dashboard" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Dashboard</Link>
+                    <Link href="/User/Workouts" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Explore Workouts</Link>
+                    <Link href="/User/Exercises" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Exercises</Link>
                 </div>
-                <div className="flex gap-3 items-center w-1/3">
+                <div className="hidden md:flex gap-3 items-center w-1/3">
                     <input
                         type="text"
                         placeholder="Search an exercise..."
-                       value={text}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-gray-300 shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none"
-                        onChange={(e)=>settext(e.target.value)}
+                        value={text}
+                        className={`w-full px-4 py-3 rounded-xl border shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none
+  ${darker
+                                ? 'bg-white text-black border-gray-300'
+                                : 'bg-gray-900 text-white border-gray-700 placeholder-gray-400'}`}
+                        onChange={(e) => settext(e.target.value)}
 
                     />
-                    <SearchIcon className='text-orange-400 cursor-pointer hover:text-orange-500' onClick={()=>searchedQuery(text)} />
+                    <SearchIcon className='text-orange-400 cursor-pointer' onClick={() => searchedQuery(text)} />
+                        
 
 
 
                 </div>
+               
+                <div>
+                    {notifyPanel.length === 0 ? <Bell className='text-orange-400 hover:text-orange-600 cursor-pointer hidden md:block' onClick={notifications} /> : <BellDotIcon className='text-orange-400 hover:text-orange-600 cursor-pointer hidden md:block' onClick={notifications} />}
+
+                </div>
+                {userEx?.plan === 'premium' && <div className='flex'>
+                <Switch />
+                </div>}
                 <div className='flex items-center gap-3'>
-                    <h1 className='text-white'>{user?.primaryEmailAddress?.emailAddress}</h1>
+                    <h1 className={`${darker ? 'text-black' : 'text-white'} hidden md:block`}>{user?.primaryEmailAddress?.emailAddress}</h1>
+                    <span className='text-white p-2 bg-orange-400 rounded-full w-10 text-center'>{userName?.[0]?.toUpperCase()}</span>
                     <SignOutButton className='bg-orange-400 p-2 rounded-2xl font-bold' routing="hash" redirectUrl="/">Sign out</SignOutButton>
                 </div>
+
             </div>
             <div className=" text-center pt-25">
                 <h1 className="text-3xl font-bold text-gray-900">Let’s Get Moving 💪</h1>
@@ -123,7 +147,7 @@ const MyLibrary = () => {
 
             </div>
 
-            {loading ? (<Spinner />) : (saved.length === 0 ? (<div className='flex justify-center items-center gap-5 flex-col h-[50vh]'><p className='text-xl font-bold font-mono'>No workouts created yet!</p><button className='bg-orange-400 p-2 rounded-2xl'>Create Now!</button></div>) : (<div className='grid md:grid-cols-2 gap-5 px-10'>
+            {loading ? (<Spin />) : (saved.length === 0 ? (<div className='flex justify-center items-center gap-5 flex-col h-[50vh]'><p className='text-xl font-bold font-mono'>No workouts created yet!</p><button className='bg-orange-400 p-2 rounded-2xl'>Create Now!</button></div>) : (<div className='grid md:grid-cols-2 gap-5 px-10'>
 
                 {Array.isArray(saved) && saved?.map(item => {
                     return (

@@ -137,11 +137,11 @@ export default function HomePage() {
         }, 1000);
     }
     const stopTimer = () => {
-        clearTimeout(timerRef.current)
+        clearInterval(timerRef.current)
     }
     const resetTimer = () => {
         setcount(0)
-        clearTimeout(timerRef.current)
+        clearInterval(timerRef.current)
         timerRef.current = null
 
     }
@@ -173,7 +173,7 @@ export default function HomePage() {
             setIdea(fitnessTips[random])
         }, 5000);
 
-        return () => clearTimeout(interval)
+        return () => clearInterval(interval)
 
     }, [])
 
