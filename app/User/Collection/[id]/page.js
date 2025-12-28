@@ -11,7 +11,7 @@ import { searchFilter } from "@/Redux/search/search";
 import Spinner from '@/components/Spinner';
 import { useSelector } from 'react-redux'
 import Spin from '@/components/Spin';
-
+import Switch from '@/components/Toggle';
 const Collection = () => {
   let params = useParams()
   const [loading, setloading] = useState(false)
