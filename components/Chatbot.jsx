@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useRef, useEffect } from 'react'
 
 import Loading from './Loading'
-const Chatbot = () => {
+const Chatbot = ({onClose}) => {
     
     const [messages, setmessages] = useState([])
     const [message, setmessage] = useState('')
@@ -45,6 +45,7 @@ to-[#84dfff] shadow-2xl rounded-2xl md:w-1/4 h-[65%] relative flex flex-col w-[8
                     <h1 className="text-lg font-semibold text-gray-800">AI Bot - Here to assist 🤖</h1>
                     <button
                         className="text-gray-600 hover:text-red-500 transition-colors duration-200 font-bold"
+                        onClick={onClose}
 
                     >
                         ✕
@@ -57,7 +58,7 @@ to-[#84dfff] shadow-2xl rounded-2xl md:w-1/4 h-[65%] relative flex flex-col w-[8
                     {/* Future messages will go here */}
                     {messages.map((item, index) => {
                         return (<div key={index} className='overflow-y-auto p-2 flex-1' >
-                            <h3>{item.sender === 'User' ? (<div className='flex justify-start w-full'><p className='text-white font-semibold text-sm bg-orange-400 px-4 py-2 rounded-2xl'>{item.message}</p></div>) : (<div className='flex justify-end w-full'><div className='flex flex-col justify-end items-end bg-gray-200 font-semibold w-fit rounded-2xl my-5 p-2 text-md'>{item.message}</div></div>)}</h3>
+                            <h3>{item.sender === 'User' ? (<div className='flex justify-start w-full'><p className='text-white font-semibold text-sm bg-orange-400 px-4 py-2 rounded-2xl'>{item.message}</p></div>) : (<div className='flex justify-end w-full'><div className='flex flex-col justify-end items-end bg-gray-900 font-semibold w-fit rounded-2xl my-5 p-2 text-md'>{item.message}</div></div>)}</h3>
 
 
 

@@ -414,7 +414,7 @@ ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                         Ask Now
                     </button>
                 </div>}
-                {botModal && <Chatbot />}
+                {botModal && <Chatbot onClose={() => setBotModal(false)} />}
 
                 {/* Announcements */}
                 <h2 className="mt-12 text-xl font-semibold">Announcements</h2>

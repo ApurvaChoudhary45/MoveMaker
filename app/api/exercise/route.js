@@ -8,7 +8,7 @@ export async function GET(req) {
     const limit = parseInt(searchParams.get("limit") || "10");
     const search = searchParams.get("search") || "";
 
-    let url = `https://exercisedb-api.vercel.app/api/v1/exercises?offset=0&limit=10`;
+    let url = `https://exercisedb-api.vercel.app/api/v1/exercises?offset=${offset}&limit=${limit}`;
 
     if (search) {
       url += `&search=${encodeURIComponent(search)}`;
@@ -17,7 +17,10 @@ export async function GET(req) {
     const res = await fetch(url);
 
     if (!res.ok) {
-      return NextResponse.json({ error: `Failed to fetch exercises: ${res.status}` }, { status: 500 });
+      return NextResponse.json(
+        { error: `Failed to fetch exercises: ${res.status}` },
+        { status: 500 }
+      );
     }
 
     const data = await res.json();
