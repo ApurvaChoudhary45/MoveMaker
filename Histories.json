@@ -1,0 +1,45 @@
+[{
+  "_id": {
+    "$oid": "6947e78098aa21bd79dadba0"
+  },
+  "name": "barbell reverse grip incline bench row",
+  "targetMuscles": [
+    "upper back"
+  ],
+  "secondaryMuscles": [
+    "biceps",
+    "forearms"
+  ],
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O",
+  "date": "2025-12-21T12:26:32.932Z"
+},
+{
+  "_id": {
+    "$oid": "6947e7ba98aa21bd79dadba1"
+  },
+  "name": "smith narrow row",
+  "targetMuscles": [
+    "upper back"
+  ],
+  "secondaryMuscles": [
+    "biceps",
+    "rear deltoids"
+  ],
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O",
+  "date": "2025-12-21T12:27:12.431Z"
+},
+{
+  "_id": {
+    "$oid": "6947e7ec98aa21bd79dadba2"
+  },
+  "name": "barbell reverse grip incline bench row",
+  "targetMuscles": [
+    "upper back"
+  ],
+  "secondaryMuscles": [
+    "biceps",
+    "forearms"
+  ],
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O",
+  "date": "2025-12-21T12:28:24.576Z"
+}]

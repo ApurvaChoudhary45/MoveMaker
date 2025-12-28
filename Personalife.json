@@ -1,0 +1,11 @@
+[{
+  "_id": {
+    "$oid": "6924b82d57f0409e2598c7da"
+  },
+  "feet": "5",
+  "inches": "10",
+  "weight": "80",
+  "level": "intermediate",
+  "goal": "muscle_gain",
+  "userID": "user_35cQe3c4aUMOPXHIe9CK8OEYo3X"
+}]

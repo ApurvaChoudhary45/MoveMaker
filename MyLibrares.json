@@ -1,0 +1,16 @@
+[{
+  "_id": {
+    "$oid": "6947d3c898aa21bd79dadb9a"
+  },
+  "name": "Full body workout",
+  "desc": "Sumary",
+  "type": "Hypertrophy",
+  "difficulty": "",
+  "exerName": "Chest Work",
+  "mins": "12",
+  "sets": "36",
+  "reps": "1",
+  "rest": "1",
+  "notes": "Optional",
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+}]

@@ -47,12 +47,12 @@ export default function ExercisesPage() {
             try {
                 if (query) {
                     // User searched → fetch filtered data
-                    const newData = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises?offset=0&limit=10&search=${query}`)
+                    const newData = await fetch(`/api/exercise?offset=0&limit=10&search=${query}`)
                     const res = await newData.json()
                     setexercise(res?.data)
                 } else {
                     // No search → load default exercises
-                    const newData = await fetch('https://exercisedb-api.vercel.app/api/v1/exercises?offset=0&limit=10')
+                    const newData = await fetch('/api/exercise?offset=0&limit=10')
                     const res = await newData.json()
                     setexercise(res?.data)
                 }
@@ -66,7 +66,7 @@ export default function ExercisesPage() {
 
     const searchExercise = async (search) => {
         try {
-            const newData = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises?offset=20&limit=10&&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
+            const newData = await fetch(`/api/exercise?offset=20&limit=10&&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
             const res = await newData.json()
             setexercise(res?.data)
         } catch (error) {
@@ -75,7 +75,7 @@ export default function ExercisesPage() {
 
     }
     const getSingleExercise = async (exerciseID) => {
-        const singleData = await fetch(`http://exercisedb-api.vercel.app/api/v1/exercises/${exerciseID}`)
+        const singleData = await fetch(`/api/exercise/${exerciseID}`)
         const res = await singleData.json()
         console.log(res?.data)
         setSingleExe(res?.data)
@@ -111,7 +111,7 @@ export default function ExercisesPage() {
     }
     const nextPage = async (offset) => {
         try {
-            const newData = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises?offset=${offset}&limit=10&&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
+            const newData = await fetch(`/api/exercise?offset=${offset}&limit=10&&search=${search}&sortBy=targetMuscles&sortOrder=desc`)
             const res = await newData.json()
             setexercise(res?.data)
         } catch (error) {

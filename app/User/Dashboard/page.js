@@ -93,7 +93,7 @@ export default function HomePage() {
 
             try {
                 const response = await fetch(
-                    "https://exercisedb-api.vercel.app/api/v1/exercises?offset=20&limit=10&sortBy=targetMuscles&sortOrder=desc"
+                    "/api/exercise"
                 );
 
                 if (!response.ok) {

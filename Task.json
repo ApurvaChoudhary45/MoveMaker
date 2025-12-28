@@ -1,0 +1,316 @@
+[{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f06"
+  },
+  "id": 1,
+  "task": "Do 10 push-ups",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f07"
+  },
+  "id": 2,
+  "task": "Do 15 squats",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O",
+  "comp": true
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f08"
+  },
+  "id": 3,
+  "task": "Hold a 20-second plank",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f09"
+  },
+  "id": 4,
+  "task": "Do 10 jumping jacks",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f0a"
+  },
+  "id": 5,
+  "task": "Walk for 5 minutes",
+  "coins": 25,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f0b"
+  },
+  "id": 6,
+  "task": "Drink 2 glasses of water",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f0c"
+  },
+  "id": 7,
+  "task": "Eat 1 fruit today",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f0d"
+  },
+  "id": 8,
+  "task": "Avoid junk food for 1 meal",
+  "coins": 25,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f0e"
+  },
+  "id": 9,
+  "task": "Meditate for 2 minutes",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f0f"
+  },
+  "id": 10,
+  "task": "Write down one thing you’re grateful for",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f10"
+  },
+  "id": 11,
+  "task": "Stretch for 3 minutes",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f11"
+  },
+  "id": 12,
+  "task": "Take 10 deep breaths",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f12"
+  },
+  "id": 13,
+  "task": "Read for 5 minutes",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f13"
+  },
+  "id": 14,
+  "task": "Avoid phone for 10 minutes",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f14"
+  },
+  "id": 15,
+  "task": "Clean your desk or room for 2 minutes",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f15"
+  },
+  "id": 16,
+  "task": "Do 5 burpees",
+  "coins": 25,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f16"
+  },
+  "id": 17,
+  "task": "Walk 100 steps",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f17"
+  },
+  "id": 18,
+  "task": "Sit in silence for 1 minute",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f18"
+  },
+  "id": 19,
+  "task": "Do 10 calf raises",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f19"
+  },
+  "id": 20,
+  "task": "Do 8 lunges",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f1a"
+  },
+  "id": 21,
+  "task": "Drink a full bottle of water",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f1b"
+  },
+  "id": 22,
+  "task": "No sugar for one snack",
+  "coins": 25,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f1c"
+  },
+  "id": 23,
+  "task": "Make your bed",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f1d"
+  },
+  "id": 24,
+  "task": "Wash your face with cold water",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f1e"
+  },
+  "id": 25,
+  "task": "Read 1 page of a book",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f1f"
+  },
+  "id": 26,
+  "task": "Write one positive thought",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f20"
+  },
+  "id": 27,
+  "task": "Stand and stretch your back",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f21"
+  },
+  "id": 28,
+  "task": "Compliment yourself out loud",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f22"
+  },
+  "id": 29,
+  "task": "Clean one small area (like your table)",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f23"
+  },
+  "id": 30,
+  "task": "Drink something healthy (like lemon water)",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f24"
+  },
+  "id": 31,
+  "task": "Avoid screen for 5 minutes",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f25"
+  },
+  "id": 32,
+  "task": "Walk outside for 2 minutes",
+  "coins": 20,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f26"
+  },
+  "id": 33,
+  "task": "Do 10 arm circles",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f27"
+  },
+  "id": 34,
+  "task": "Stand up and take 20 steps",
+  "coins": 10,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+},
+{
+  "_id": {
+    "$oid": "6947ded679026bb9f83c5f28"
+  },
+  "id": 35,
+  "task": "Speak to a friend or family member",
+  "coins": 15,
+  "userID": "user_34ydR9tNGXT96JV4PJ55YbWCs7O"
+}]
