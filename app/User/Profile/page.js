@@ -15,6 +15,7 @@ import { useAuth } from '@clerk/nextjs';
 const Profile = () => {
     const { edgestore } = useEdgeStore();
     const { user, isLoaded } = useUser()
+    const router = useRouter()
     const joined = user?.createdAt
 const joinedDate = joined ? new Date(joined) : null
     const [basicModal, setbasicModal] = useState(false)
