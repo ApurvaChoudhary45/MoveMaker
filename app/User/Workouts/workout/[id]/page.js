@@ -1,7 +1,7 @@
 
 'use client'
 import { SignOutButton } from '@clerk/nextjs';
-import { Dumbbell, SearchIcon, Bell } from "lucide-react";
+import { Dumbbell, SearchIcon, Bell,BellDotIcon } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
