@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const runtime = "nodejs";
+
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -14,19 +16,31 @@ export async function GET(req) {
       url += `&search=${encodeURIComponent(search)}`;
     }
 
-    const res = await fetch(url);
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "User-Agent": "MoveMaker-App"
+      },
+      cache: "no-store"
+    });
 
     if (!res.ok) {
       return NextResponse.json(
-        { error: `Failed to fetch exercises: ${res.status}` },
-        { status: 500 }
+        { error: `External API failed: ${res.status}` },
+        { status: res.status }
       );
     }
 
     const data = await res.json();
     return NextResponse.json(data);
-  } catch (err) {
-    console.error("Error in API route:", err);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+
+  } catch (error) {
+    console.error("Exercise API error:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

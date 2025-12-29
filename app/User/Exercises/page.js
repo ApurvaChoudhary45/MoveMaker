@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useUser } from '@clerk/nextjs';
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Spin from "@/components/Spin";
 export default function ExercisesPage() {
     let { user } = useUser()
     const query = useSelector(state => state.searched.search)
@@ -15,6 +16,7 @@ export default function ExercisesPage() {
     const [marked, setmarked] = useState(false)
     const [count, setcount] = useState(0)
     const darker = useSelector(state => state.dark.mode)
+    const [loading, setloading] = useState(false)
     const [history, sethistory] = useState({
         name: '',
         targetMuscles: '',
@@ -43,25 +45,33 @@ export default function ExercisesPage() {
         setmarked(false)
     }
     useEffect(() => {
-        const fetcher = async () => {
+       const timeout = setTimeout(() => {
+        const fetcher = async()=>{
+            setloading(true)
             try {
                 if (query) {
                     // User searched → fetch filtered data
-                    const newData = await fetch(`/api/exercise?offset=0&limit=10&search=${query}`)
-                    const res = await newData.json()
-                    setexercise(res?.data)
+                    const timeout = setTimeout(async () => {
+                        const newData = await fetch(`/api/exercise?offset=0&limit=10&search=${query}`)
+                        const res = await newData.json()
+                        setexercise(res?.data)
+                    }, 500);
+                     
                 } else {
                     // No search → load default exercises
                     const newData = await fetch('/api/exercise?offset=0&limit=10')
                     const res = await newData.json()
+                    console.log(res.data)
                     setexercise(res?.data)
                 }
             } catch (err) {
                 console.log("Error fetching exercises")
             }
         }
-
+        setloading(false)
         fetcher()
+       }, 500);
+       return ()=> clearTimeout(timeout)
     }, [query])
 
     const searchExercise = async (search) => {
@@ -75,14 +85,14 @@ export default function ExercisesPage() {
 
     }
     const getSingleExercise = async (exerciseID) => {
-        const singleData = await fetch(`/api/exercise/${exerciseID}`)
+        const singleData = await fetch(`/api/exercises/${exerciseID}`)
         const res = await singleData.json()
-        console.log(res?.data)
-        setSingleExe(res?.data)
+        console.log(res)
+        setSingleExe(res?.data?.data)
         let obj = {
-            name: res?.data?.name,
-            targetMuscles: res?.data?.targetMuscles,
-            secondaryMuscles: res?.data?.secondaryMuscles,
+            name: res?.data?.data?.name,
+            targetMuscles: res?.data?.data?.targetMuscles,
+            secondaryMuscles: res?.data?.data?.secondaryMuscles,
             userID: user?.id,
             date: today
 
@@ -219,7 +229,7 @@ ${darker ? 'text-gray-800' : 'text-white'}`}>
                 <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
                     {/* ==== CARD === */}
-                    {Array.isArray(exercise) && exercise?.map((i) => (
+                    {loading ? <Spin/> : Array.isArray(exercise) && exercise?.map((i) => (
                         <div
                             key={i.exerciseId}
                             className={`rounded-2xl border shadow-sm hover:shadow-md transition-all hover:-translate-y-1
@@ -275,15 +285,15 @@ ${darker ? 'bg-orange-100 text-orange-700' : 'bg-orange-900/30 text-orange-300'}
 
 
                 {/* Page Numbers */}
-                <div className="flex gap-2 ">
+                <div className="flex md:gap-2 gap-1 overflow-x-scroll">
                     {[...Array(15)].map((_, i) => (
 
                         <button
                             key={i}
                             className={`w-10 h-10 flex items-center justify-center rounded-lg border shadow-sm transition
   ${darker
-    ? 'bg-white text-gray-700 hover:bg-gray-900 hover:text-white'
-    : 'bg-gray-900 text-gray-300 border-gray-700 hover:bg-white hover:text-black'}`}
+                                    ? 'bg-white text-gray-700 hover:bg-gray-900 hover:text-white'
+                                    : 'bg-gray-900 text-gray-300 border-gray-700 hover:bg-white hover:text-black'}`}
                             onClick={() => nextPage((i + 1 - 1) * 10)}
                         >
                             {i + 1}
@@ -313,7 +323,7 @@ ${darker ? 'border-gray-200 text-gray-700' : 'border-gray-700 text-gray-400'}`}>
                     <div className='absolute cursor-pointer text-orange-400 font-bold hover:text-orange-300' onClick={closeBadge}>X</div>
                     {/* Badge Icon Placeholder */}
                     <div className="w-24 h-24 mx-auto bg-yellow-300 rounded-full shadow-md flex items-center justify-center text-4xl font-bold">
-                        <Image src={badgeImg} alt="" height={24} width={24}  />
+                        <Image src={badgeImg} alt="" height={24} width={24} />
 
                     </div>
 
