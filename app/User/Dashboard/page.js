@@ -7,11 +7,14 @@ import Chatbot from "@/components/Chatbot";
 import Spin from "@/components/Spin";
 import { useSelector, useDispatch } from 'react-redux'
 import { SignOutButton, useUser } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 export default function HomePage() {
     const darker = useSelector(state => state.dark.mode)
     const [idea, setIdea] = useState('')
     const { user, isLoaded } = useUser();
+     const { isSignedIn } = useAuth()
     const [timerModal, setTimerModal] = useState(false)
     const [exercise, setexercise] = useState(null)
     const [count, setcount] = useState(0)
@@ -19,10 +22,20 @@ export default function HomePage() {
     const [instructions, setInstructions] = useState(false)
     const [loading, setloading] = useState(false)
     const [text, settext] = useState('')
+    
     const [botModal, setBotModal] = useState(false)
     const [badgeInfo, setbadgeInfo] = useState(null)
     const [completed, setcompleted] = useState(false)
     const [userEx, setuserEx] = useState([])
+    const router = useRouter()
+
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
+
 
     const badges = [
         {

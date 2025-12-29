@@ -14,6 +14,7 @@ import Image from 'next/image';
 
 const Featured = () => {
     const darker = useSelector(state => state.dark.mode)
+     const { isSignedIn } = useAuth()
     const router = useRouter()
     const [userEx, setuserEx] = useState([])
     const [notifyModal, setnotifyModal] = useState(false)
@@ -21,7 +22,7 @@ const Featured = () => {
     const dispatch = useDispatch()
     let params = useParams()
     const [exercise, setexercise] = useState([])
-    let { user } = useUser()
+    const { user, isLoaded } = useUser()
     const [text, settext] = useState('')
     const userName = user?.primaryEmailAddress?.emailAddress
     const searchedQuery = (text) => {
@@ -32,6 +33,12 @@ const Featured = () => {
     const notifications = () => {
         setnotifyModal(!notifyModal)
     }
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
 
     useEffect(() => {
         const fetcher = async () => {

@@ -8,10 +8,11 @@ import { useState, useEffect } from 'react';
 import { useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux'
+import { useAuth } from '@clerk/nextjs';
 import Switch from '@/components/Toggle';
 const Tasks = () => {
     const [tasks, settasks] = useState([])
-
+     const { isSignedIn } = useAuth()
     const [marked, setmarked] = useState([])
     let { user, isLoaded } = useUser()
     const [panel, setPanel] = useState([])
@@ -28,6 +29,12 @@ const Tasks = () => {
         const notifications = () => {
         setnotifyModal(!notifyModal)
         }
+        useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
     useEffect(() => {
         const fetcher = async () => {
             try {

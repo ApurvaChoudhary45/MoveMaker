@@ -6,8 +6,10 @@ import { useUser } from '@clerk/nextjs';
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Spin from "@/components/Spin";
+import { useRouter } from "next/navigation";
+import { useAuth } from '@clerk/nextjs';
 export default function ExercisesPage() {
-    let { user } = useUser()
+    let { user, isLoaded } = useUser()
     const query = useSelector(state => state.searched.search)
     const [exercise, setexercise] = useState([])
     const [search, setSearch] = useState('')
@@ -17,6 +19,8 @@ export default function ExercisesPage() {
     const [count, setcount] = useState(0)
     const darker = useSelector(state => state.dark.mode)
     const [loading, setloading] = useState(false)
+     const { isSignedIn } = useAuth()
+    const router = useRouter()
     const [history, sethistory] = useState({
         name: '',
         targetMuscles: '',
@@ -44,6 +48,13 @@ export default function ExercisesPage() {
         })
         setmarked(false)
     }
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
+
     useEffect(() => {
        const timeout = setTimeout(() => {
         const fetcher = async()=>{

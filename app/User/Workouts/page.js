@@ -5,11 +5,22 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-
+import { useRouter } from "next/navigation";
+import { useUser } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 const Workouts = () => {
   const darker = useSelector(state => state.dark.mode)
   const [workout, setworkout] = useState([])
+  const router = useRouter()
+  let { isLoaded } = useUser()
   const [search, setSearch] = useState('')
+  const { isSignedIn } = useAuth()
+  useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
   useEffect(() => {
     const fetcher = async () => {
       const data = await fetch('/api/allworkout')

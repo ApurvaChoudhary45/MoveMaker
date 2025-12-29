@@ -7,13 +7,21 @@ import { useUser } from '@clerk/nextjs'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import { useMemo } from 'react'
+import { useRouter } from "next/navigation";
+import { useAuth } from '@clerk/nextjs';
 const Progress = () => {
     const darker = useSelector(state => state.dark.mode)
-
+     const { isSignedIn } = useAuth()
     let { user, isLoaded } = useUser()
     const [saved, setSaved] = useState([])
     const [target, settarget] = useState([])
-    
+    const router = useRouter()
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
     useEffect(() => {
         if (!isLoaded || !user) return
         const libWork = async () => {

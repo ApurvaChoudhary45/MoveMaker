@@ -9,9 +9,11 @@ import { SignOutButton, useUser } from '@clerk/nextjs';
 import { SearchIcon } from 'lucide-react';
 import Loader from '@/components/Loader';
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@clerk/nextjs';
 
 const CreateWorkout = () => {
-    const {user} = useUser()
+    const {user, isLoaded} = useUser()
+     const { isSignedIn } = useAuth()
     const [exerModal, setExerModal] = useState(false)
     const [exer, setExer] = useState([])
     const [loading, setloading] = useState(false)
@@ -19,12 +21,22 @@ const CreateWorkout = () => {
     const router = useRouter()
     const [marked, setmarked] = useState(false)
     const [panel, setPanel] = useState([])
+
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
+    
     const badgeImg = 'https://cdn-icons-png.flaticon.com/128/11297/11297546.png'
     const addBadge = async (url) => {
     let badgeInfo = {
         badgeUrl: url,
       userID: user?.id
     }
+    
+
     const data = await fetch('/api/showbadge', {
       method: 'PUT',
       headers: {

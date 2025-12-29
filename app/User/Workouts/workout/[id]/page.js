@@ -18,6 +18,7 @@ export default function WorkoutDetailsPage() {
   const dispatch = useDispatch()
   const [notifyModal, setnotifyModal] = useState(false)
   const [notifyPanel, setnotifyPanel] = useState([])
+  const [userEx, setuserEx] = useState([])
   const darker = useSelector(state => state.dark.mode);
   const [text, settext] = useState('')
   const notifications = () => {
@@ -30,6 +31,7 @@ export default function WorkoutDetailsPage() {
   const [marked, setmarked] = useState(false)
   const badgeImg = 'https://cdn-icons-png.flaticon.com/128/1616/1616456.png'
   const [allWorkout, setallWorkout] = useState([])
+  const userName = user?.primaryEmailAddress?.emailAddress
   const addBadge = async (url) => {
     let badgeInfo = {
       badgeUrl: url,
@@ -145,57 +147,51 @@ export default function WorkoutDetailsPage() {
   return (
     <>
 
-      <div className={`flex justify-between items-center w-full fixed px-6 z-50 p-3
-                ${darker ? 'bg-white text-black' : 'bg-black text-white'}`}>
-        <span className="flex gap-3">
-          <Dumbbell className="text-orange-400" />
-          <h1 className="text-xl font-bold">MoveMaker</h1>
-        </span>
+      <div className={`flex justify-between items-center w-full fixed px-6 z-50 bg-${darker ? 'white' : 'black'}  p-3`}>
+                <span className="flex top-5 left-5 gap-3">
+                    
+                    <Dumbbell className='text-amber-400' />
+                    <h1 className={`text-xl font-bold text-${darker ? 'black' : 'white'}`}>MoveMaker</h1>
 
-        <div className="hidden md:flex items-center gap-6">
-          <Link href="/User/Dashboard" className="hover:opacity-80">Dashboard</Link>
-          <Link href="/User/Workouts" className="hover:opacity-80">Explore Workouts</Link>
-          <Link href="/User/Exercises" className="hover:opacity-80">Exercises</Link>
-        </div>
+                </span>
+                <div className="hidden md:flex items-center gap-6">
+                    <Link href="/User/Dashboard" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Dashboard</Link>
+                    <Link href="/User/Workouts" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Explore Workouts</Link>
+                    <Link href="/User/Exercises" className={`${darker ? 'text-black hover:text-gray-700' : 'text-gray-200 hover:text-white'}`}>Exercises</Link>
+                </div>
+                <div className="hidden md:flex gap-3 items-center w-1/3">
+                    <input
+                        type="text"
+                        placeholder="Search an exercise..."
+                        value={text}
+                        className={`w-full px-4 py-3 rounded-xl border shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none
+  ${darker
+                                ? 'bg-white text-black border-gray-300'
+                                : 'bg-gray-900 text-white border-gray-700 placeholder-gray-400'}`}
+                        onChange={(e) => settext(e.target.value)}
 
-        <div className="flex gap-3 items-center w-1/3">
-          <input
-            type="text"
-            placeholder="Search an exercise..."
-            value={text}
-            onChange={(e) => settext(e.target.value)}
-            className={`w-full px-4 py-3 rounded-xl shadow-sm focus:ring-2 focus:ring-orange-500 focus:outline-none
-                        ${darker
-                ? 'bg-white text-black border border-gray-300'
-                : 'bg-gray-900 text-white border border-gray-700 placeholder-gray-400'}`}
-          />
-          <SearchIcon
-            className="text-orange-400 cursor-pointer"
-            onClick={() => searchedQuery(text)}
-          />
-        </div>
+                    />
+                    <SearchIcon className='text-orange-400 cursor-pointer' onClick={() => searchedQuery(text)} />
+                        
 
-        <Bell
-          className="text-orange-400 hover:text-orange-600 cursor-pointer"
-          onClick={notifications}
-        />
 
-        <Switch />
 
-        <div className="flex items-center gap-3">
-          <h1 className={`${darker ? 'text-black' : 'text-white'}`}>
-            {user?.primaryEmailAddress?.emailAddress}
-          </h1>
-          <SignOutButton
-            className="bg-orange-400 p-2 rounded-2xl font-bold text-black"
-            routing="hash"
-            redirectUrl="/"
-          >
-            Sign out
-          </SignOutButton>
-        </div>
+                </div>
+               
+                <div>
+                    {notifyPanel.length === 0 ? <Bell className='text-orange-400 hover:text-orange-600 cursor-pointer hidden md:block' onClick={notifications} /> : <BellDotIcon className='text-orange-400 hover:text-orange-600 cursor-pointer hidden md:block' onClick={notifications} />}
 
-      </div>
+                </div>
+                {userEx?.plan === 'premium' && <div className='flex'>
+                <Switch />
+                </div>}
+                <div className='flex items-center gap-3'>
+                    <h1 className={`${darker ? 'text-black' : 'text-white'} hidden md:block`}>{user?.primaryEmailAddress?.emailAddress}</h1>
+                    <span className='text-white p-2 bg-orange-400 rounded-full w-10 text-center'>{userName?.[0]?.toUpperCase()}</span>
+                    <SignOutButton className='bg-orange-400 p-2 rounded-2xl font-bold' routing="hash" redirectUrl="/">Sign out</SignOutButton>
+                </div>
+
+            </div>
       {notifyModal && <div className='fixed z-50 w-1/4 bg-black/80 backdrop-blur-2xl h-[40%] right-20 top-20 rounded-2xl overflow-y-auto'>
         <div className='flex justify-between px-10 items-center'>
           <h1 className='text-white text-center mt-2 text-xl font-bold font-mono'>Notifications</h1>
@@ -235,24 +231,7 @@ ${darker
         </div>
 
         {/* Media Section */}
-        <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-
-          {/* Thumbnail / Image */}
-          <div className="w-full h-64 bg-gray-200 rounded-2xl overflow-hidden shadow-md">
-            <img
-              src={seeWorkout?.thumbnail}
-              alt="Workout Thumbnail"
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          {/* Video */}
-          <div className="w-full h-64 bg-black rounded-2xl overflow-hidden shadow-md">
-            <video className="w-full h-full object-cover" controls>
-              <source src={seeWorkout?.video} type="video/mp4" />
-            </video>
-          </div>
-        </div>
+        
 
         {/* Stats Section */}
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">

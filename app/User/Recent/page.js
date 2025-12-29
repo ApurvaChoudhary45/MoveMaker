@@ -9,15 +9,15 @@ import { searchFilter } from "@/Redux/search/search"
 import { useRouter } from 'next/navigation'
 import Spinner from '@/components/Spinner'
 import Switch from '@/components/Toggle'
-
+import { useAuth } from '@clerk/nextjs';
 const Recent = () => {
     const darker = useSelector(state => state.dark.mode)
-
+     const { isSignedIn } = useAuth()
     const router = useRouter()
     const dispatch = useDispatch()
 
     const [text, settext] = useState('')
-    let { user } = useUser()
+    let { user, isLoaded } = useUser()
     const [notifyModal, setnotifyModal] = useState(false)
     const [notifyPanel, setnotifyPanel] = useState([])
     const [historical, setHistorical] = useState([])
@@ -31,7 +31,12 @@ const Recent = () => {
         dispatch(searchFilter(text))
         router.push(`/User/Exercises`)
     }
-
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
     useEffect(() => {
         const fetched = async () => {
             setloading(true)

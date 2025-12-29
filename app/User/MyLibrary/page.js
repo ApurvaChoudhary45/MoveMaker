@@ -10,6 +10,7 @@ import { searchFilter } from '@/Redux/search/search';
 import { useSelector } from 'react-redux'
 import Switch from '@/components/Toggle';
 import Spin from '@/components/Spin';
+import { useAuth } from '@clerk/nextjs';
 const MyLibrary = () => {
     
     const router = useRouter()
@@ -23,7 +24,14 @@ const MyLibrary = () => {
     const [text, settext] = useState('')
     const [userEx, setuserEx] = useState([])
     const [info, setInfo] = useState({})
+     const { userId, isSignedIn } = useAuth()
     const userName = user?.primaryEmailAddress?.emailAddress
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
     const searchedQuery = (text) => {
             dispatch(searchFilter(text))
                     router.push(`/User/Exercises`)

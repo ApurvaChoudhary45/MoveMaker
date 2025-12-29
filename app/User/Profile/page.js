@@ -10,9 +10,11 @@ import Link from 'next/link'
 import Loader from '@/components/Loader'
 import Spin from '@/components/Spin'
 import Image from 'next/image'
+import { useRouter } from "next/navigation";
+import { useAuth } from '@clerk/nextjs';
 const Profile = () => {
     const { edgestore } = useEdgeStore();
-    const { user, isLoaded, isSignedIn } = useUser()
+    const { user, isLoaded } = useUser()
     const joined = user?.createdAt
 const joinedDate = joined ? new Date(joined) : null
     const [basicModal, setbasicModal] = useState(false)
@@ -27,6 +29,7 @@ const joinedDate = joined ? new Date(joined) : null
     const [cancelModal, setcancelModal] = useState(false)
     const [loading, setloading] = useState(false)
     const darker = useSelector(state => state.dark.mode)
+     const { isSignedIn } = useAuth()
     const modalBasic = () => {
         setbasicModal(true)
     }
@@ -51,7 +54,12 @@ const joinedDate = joined ? new Date(joined) : null
         setDetails(prev => ({ ...prev, [name]: value }))
     }
     
-    
+    useEffect(() => {
+      if(!isLoaded) return
+      if( !isSignedIn){
+        router.push('/')
+      }
+     }, [isSignedIn, router])
     useEffect(() => {
         if (!isLoaded || !user) return
         const fetcher = async () => {
