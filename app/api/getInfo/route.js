@@ -11,7 +11,7 @@ export async function POST(request) {
     const body = await request.json();
     const { userID, email } = body;
 
-    const cacheKey = `personal:${email}`;
+    const cacheKey = `personal:${userID}`;
     const cached = await redis.get(cacheKey);
 
     if (cached) {
@@ -25,23 +25,9 @@ export async function POST(request) {
 
     const currService = (await connection)
       .db("MoveMaker")
-      .collection("PersonalInfo");
+      .collection("PersonaInfo");
 
-    let getWorkout = await currService.find({ userID }).toArray();
-
-    // 🔥 USER ID MIGRATION FIX
-    if (getWorkout.length && getWorkout[0].userID !== userID) {
-      await currService.updateOne(
-        { _id: getWorkout[0]._id },
-        { $set: { userID } }
-      );
-
-      // Re-fetch updated document
-      getWorkout = await currService.find({ userID }).toArray();
-    }
-
-    // ✅ Clear correct redis key
-    await redis.del(cacheKey);
+    let getWorkout = await currService.findOne({userID});
 
     // Cache fresh data
     await redis.set(cacheKey, getWorkout, { ex: 3600 });
@@ -58,7 +44,7 @@ export async function POST(request) {
     console.error(error);
     return NextResponse.json({
       message: "Unable to load services",
-      status: "401",
+      status: "500",
     });
   }
 }

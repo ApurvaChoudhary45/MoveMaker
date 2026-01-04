@@ -1,6 +1,7 @@
 
 import { NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
+import { redis } from "@/lib/redis";
 
 const URI = process.env.MONGO_URI
 const client = new MongoClient(URI)
@@ -10,12 +11,31 @@ export async function PUT(request) {
     try {
         const body = await request.json()
         console.log(body)
-        const {feet, inches, weight, level, goal, userID, id, image} = body
-        const addWork = (await connection).db('MoveMaker').collection('Personal')
-        await addWork.updateOne({_id : new ObjectId(id)}, {$set : {feet : feet, inches : inches, weight : weight, level : level, goal : goal, userID : userID, image : image}})
-        return NextResponse.json({message : 'Info updated successfully'}, {status : 201})
+        const { feet, inches, weight, level, goal, userID, id, image, plan } = body
+        const addWork = (await connection).db('MoveMaker').collection('PersonaInfo')
+        const updateFields = {
+            feet,
+            inches,
+            weight,
+            level,
+            goal,
+            userID,
+            updatedAt: new Date(),
+        };
+
+        if (image) {
+            updateFields.image = image
+        }
+        if(plan){
+            updateFields.plan = plan
+        }
+        await addWork.updateOne({ _id: new ObjectId(id) }, { $set: updateFields })
+
+        const cacheKey = `personal:${userID}`;
+        await redis.del(cacheKey);
+        return NextResponse.json({ message: 'Info updated successfully' }, { status: 201 })
     } catch (error) {
-        return NextResponse.json({message : 'Could not update the data'}, {status : 500})
+        return NextResponse.json({ message: 'Could not update the data' }, { status: 500 })
     }
 
 }

@@ -17,7 +17,7 @@ const Profile = () => {
     const { user, isLoaded } = useUser()
     const router = useRouter()
     const joined = user?.createdAt
-const joinedDate = joined ? new Date(joined) : null
+    const joinedDate = joined ? new Date(joined) : null
     const [basicModal, setbasicModal] = useState(false)
     const [photoModal, setphotoModal] = useState(false)
     const [url, seturl] = useState('')
@@ -30,7 +30,7 @@ const joinedDate = joined ? new Date(joined) : null
     const [cancelModal, setcancelModal] = useState(false)
     const [loading, setloading] = useState(false)
     const darker = useSelector(state => state.dark.mode)
-     const { isSignedIn } = useAuth()
+    const { isSignedIn } = useAuth()
     const modalBasic = () => {
         setbasicModal(true)
     }
@@ -54,15 +54,16 @@ const joinedDate = joined ? new Date(joined) : null
         const { name, value } = e.target
         setDetails(prev => ({ ...prev, [name]: value }))
     }
-    
+
     useEffect(() => {
-      if(!isLoaded) return
-      if( !isSignedIn){
-        router.push('/')
-      }
-     }, [isSignedIn, router])
+        if (!isLoaded) return
+        if (!isSignedIn) {
+            router.push('/')
+        }
+    }, [isSignedIn, router])
     useEffect(() => {
         if (!isLoaded || !user) return
+        setloading(true)
         const fetcher = async () => {
             let obj = {
                 userID: user?.id,
@@ -75,9 +76,10 @@ const joinedDate = joined ? new Date(joined) : null
                 },
                 body: JSON.stringify(obj)
             })
+
             const res = await data.json()
-            console.log(res)
-            setInfo(res?.getWorkout?.[0])
+            setInfo(res?.getWorkout)
+            setloading(false)
 
         }
         fetcher()
@@ -94,7 +96,6 @@ const joinedDate = joined ? new Date(joined) : null
             });
         }
     }, [info]);
-    console.log(user)
     const cancelPlan = () => {
         setcancelModal(true)
     }
@@ -115,7 +116,6 @@ const joinedDate = joined ? new Date(joined) : null
                     body: JSON.stringify(userInfo),
                 })
                 const res = await data.json()
-                console.log(res)
                 setCoin(res?.notification?.filter(n => n.comp).map(n => n.coins))
 
             } catch (error) {
@@ -130,16 +130,16 @@ const joinedDate = joined ? new Date(joined) : null
         settotalCoin(total)
     }, [coin])
 
-    
+
 
     const uploadPhoto = async () => {
+        setloading(true)
         let upload = url
         if (file) {
             const uploadedURL = await edgestore.publicFiles.upload({
                 file
             })
             upload = uploadedURL?.url
-            console.log(upload)
             seturl(upload)
         }
         try {
@@ -160,12 +160,20 @@ const joinedDate = joined ? new Date(joined) : null
                 },
                 body: JSON.stringify(obj),
             })
+            if(!data.ok){
+                 throw new Error("Update failed");
+            }
+            setphotoModal(false)
         } catch (error) {
             console.log('Fail to add a photo')
+        }
+        finally{
+            setloading(false)
         }
 
     }
     const updateInfo = async () => {
+        setloading(true)
         let obj = {
             feet: details.feet,
             inches: details.inches,
@@ -173,18 +181,28 @@ const joinedDate = joined ? new Date(joined) : null
             level: details.level,
             goal: details.goal,
             userID: user?.id,
-            id: info?._id
+            id: info?._id,
+            plan : userEx?.plan
         }
-        console.log(obj)
-        const data = await fetch('/api/personal', {
+        try {
+            const data = await fetch('/api/personal', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json' // Set the content type to JSON
             },
             body: JSON.stringify(obj),
         })
-
-        setbasicModal(false)
+        if(!data.ok){
+            throw new Error("Update failed");
+        }
+         setbasicModal(false)
+        } catch (error) {
+            console.log(error)
+        }
+        finally{
+            setloading(false)
+        }
+       
     }
     useEffect(() => {
         const fetcher = async () => {
@@ -202,7 +220,7 @@ const joinedDate = joined ? new Date(joined) : null
             setuserEx(res?.getWorkout[0])
         }
         fetcher()
-    }, [])
+    }, [userEx])
 
     const cancelPre = async () => {
         try {
@@ -233,8 +251,8 @@ const joinedDate = joined ? new Date(joined) : null
 
     }
     useEffect(() => {
-    console.log(info)
-    console.log(info?._id)
+        console.log(info)
+        console.log(info?._id)
     }, [info])
 
 
@@ -243,7 +261,7 @@ const joinedDate = joined ? new Date(joined) : null
             {loading && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
                     <div className="bg-white px-6 py-4 rounded-xl shadow-lg text-sm font-medium">
-                        Cancelling Plan...
+                        Loading...
                     </div>
                 </div>
             )}
@@ -315,9 +333,9 @@ const joinedDate = joined ? new Date(joined) : null
                         </div>
 
                         {/* Button */}
-                        <button className="w-full bg-black text-white py-3 rounded-xl font-medium" onClick={updateInfo}>
+                        {loading ? <p className=''>Updating...</p> : <button className="w-full bg-black text-white py-3 rounded-xl font-medium" onClick={updateInfo}>
                             Update
-                        </button>
+                        </button>}
                     </div>
 
                 </div>
@@ -355,7 +373,7 @@ const joinedDate = joined ? new Date(joined) : null
 
                             <button><input type='file' className='cursor-pointer' onChange={(e) => setfile(e.target.files[0])} /></button>
 
-                            <button className='font-bold bg-orange-500 hover:bg-orange-400 p-3 rounded-2xl' onClick={uploadPhoto}>Upload</button>
+                            {loading ? <Spin/> : <button className='font-bold bg-orange-500 hover:bg-orange-400 p-3 rounded-2xl' onClick={uploadPhoto}>Upload</button>}
                         </div>
 
                         <div>
@@ -375,12 +393,12 @@ ${darker ? 'bg-white text-black' : 'bg-black text-white'}`}>
                 <section className={`flex items-center gap-4 p-4 rounded-2xl
 ${darker ? 'bg-gray-100' : 'bg-gray-900'}`}>
                     {info?.image ? <Image
-  src={info.image}
-  alt="Profile picture"
-  width={80}
-  height={80}
-  className="rounded-full"
-/>: <div className={`${darker ? 'bg-gray-300' : 'bg-gray-700'} w-20 h-20 rounded-full`}/>}
+                        src={info.image}
+                        alt="Profile picture"
+                        width={80}
+                        height={80}
+                        className="rounded-full"
+                    /> : <div className={`${darker ? 'bg-gray-300' : 'bg-gray-700'} w-20 h-20 rounded-full`} />}
                     <div className="flex-1">
                         <h2 className="text-xl font-semibold">User Name</h2>
                         <button className="text-sm text-blue-600 underline" onClick={openPhoto}>Edit Photo</button>
@@ -391,11 +409,11 @@ ${darker ? 'bg-gray-100' : 'bg-gray-900'}`}>
                 </section>
 
                 {/* BASIC INFO */}
-                <section  className={`p-4 rounded-2xl shadow-sm space-y-3
+                {loading ? <Spin/> : <section className={`p-4 rounded-2xl shadow-sm space-y-3
 ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                     <div className='flex justify-between'>
                         <h3 className="text-lg font-semibold">Basic Info</h3>
-                        <PencilIcon className={`${darker ? 'text-orange-400' : 'text-orange-300'} hover:text-orange-600 cursor-pointer`}  onClick={modalBasic} />
+                        <PencilIcon className={`${darker ? 'text-orange-400' : 'text-orange-300'} hover:text-orange-600 cursor-pointer`} onClick={modalBasic} />
                     </div>
                     <div className="space-y-2">
                         <p className='flex gap-2'>Height: <span>{info?.feet} feet</span><span>{info?.inches} inches</span></p>
@@ -403,10 +421,10 @@ ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                         <p>Fitness Level: {info?.level}</p>
                         <p>Goal: {info?.goal}</p>
                     </div>
-                </section>
+                </section>}
 
                 {/* WORKOUT SUMMARY */}
-                <section  className={`p-4 rounded-2xl shadow-sm space-y-3
+                <section className={`p-4 rounded-2xl shadow-sm space-y-3
 ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                     <h3 className="text-lg font-semibold">Workout Summary/Created</h3>
 
@@ -419,7 +437,7 @@ ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                 </section>
 
                 {/* ACHIEVEMENTS PREVIEW */}
-                {userEx?.plan === 'premium' && <section  className={`p-4 rounded-2xl shadow-sm space-y-3
+                {userEx?.plan === 'premium' && <section className={`p-4 rounded-2xl shadow-sm space-y-3
 ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                     <h3 className="text-lg font-semibold">Achievements</h3>
 
@@ -444,7 +462,7 @@ ${darker ? 'bg-gray-100 hover:bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gr
                 </section>
 
                 {/* ACCOUNT INFO */}
-                <section  className={`p-4 rounded-2xl shadow-sm space-y-3
+                <section className={`p-4 rounded-2xl shadow-sm space-y-3
 ${darker ? 'bg-white text-black' : 'bg-gray-900 text-white'}`}>
                     <h3 className="text-lg font-semibold">Account Info</h3>
 
